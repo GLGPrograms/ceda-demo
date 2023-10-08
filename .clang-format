@@ -1,0 +1,6 @@
+# clang-format 15.0.7
+IndentWidth: 4
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+AlignConsecutiveMacros: true
+
