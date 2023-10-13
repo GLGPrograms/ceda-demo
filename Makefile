@@ -4,6 +4,7 @@ SRC = \
 	  src/ceda_print_a.asm	\
 	  src/ceda_print_c.c	\
 	  src/main.c 			\
+	  src/io_a.c            \
 	  \
 
 OBJ = $(patsubst %, %.o, $(basename $(SRC)))
