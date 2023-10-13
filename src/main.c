@@ -12,3 +12,19 @@ int main(void) {
 
     return 0;
 }
+
+uint8_t ret_u8(void) {
+    return 0x01;
+}
+
+uint16_t ret_u16(void) {
+    return 0x0123;
+}
+
+uint32_t ret_u32(void) {
+    return 0x01234567;
+}
+
+void *ret_ptr(void) {
+    return (void *)0x1234;
+}
