@@ -20,7 +20,7 @@ $(OUTDIR)/$(PROJECT).prg: $(OUTDIR)/$(PROJECT)_code_compiler.bin
 $(OUTDIR)/$(PROJECT)_code_compiler.bin: $(OBJ) | $(OUTDIR)
 	zcc +conf.cfg \
 		-crt0=src/crt.asm \
-		-m -o $(OUTDIR)/$(PROJECT) $?
+		-m -o $(OUTDIR)/$(PROJECT) $(OBJ)
 
 %.o: %.c
 	zcc +z80 -c -o $@ $<
