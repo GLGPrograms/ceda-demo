@@ -3,6 +3,8 @@ PROJECT := demo
 SRC = \
 	  src/ceda_print_a.asm	\
 	  src/ceda_print_c.c	\
+	  src/cursor.c          \
+	  src/delay.asm         \
 	  src/main.c 			\
 	  src/io_a.c            \
 	  \
