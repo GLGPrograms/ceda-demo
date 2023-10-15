@@ -1,14 +1,32 @@
 #include "ceda_print.h"
+#include "cursor.h"
+#include "delay.h"
 #include "io.h"
-
-int globalvar = 0x7777;
 
 int main(void) {
     ceda_print("Hello world!");
-    ceda_cls();
 
-    io_out(0x81, 0x80);
-    ceda_print("ABCD");
+    // ceda_cls();
+
+    for (;;) {
+        for (int i = 0; i < 80; ++i) {
+            cursor_setXY(i, 0);
+
+            // TODO(giomba): add vsync?
+            delay_loop(US_TO_LOOPS(200000ULL));
+        }
+    }
+
+    cursor_setStartRaster(5);
+    cursor_setEndRaster(10);
+
+    for (;;) {
+        for (int i = 0; i < (16 - 1); ++i) {
+            cursor_setStartRaster(i);
+            cursor_setEndRaster(i + 1);
+            delay_loop(US_TO_LOOPS(200000UL));
+        }
+    }
 
     return 0;
 }
