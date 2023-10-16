@@ -1,5 +1,7 @@
 PROJECT := demo
 
+SERIALPORT = /dev/ttyUSB0
+
 SRC = \
 	  src/ceda_print_a.asm	\
 	  src/ceda_print_c.c	\
@@ -30,8 +32,16 @@ $(OUTDIR)/$(PROJECT)_code_compiler.bin: $(OBJ) | $(OUTDIR)
 %.o: %.asm
 	zcc +z80 -c -o $@ $<
 
+%.pkt: %.prg
+	script/makepacket.py $< > $@
+
 $(OUTDIR):
 	mkdir -p $@
+
+.PHONY: send
+send: $(OUTDIR)/$(PROJECT).pkt
+	stty -F $(SERIALPORT) 9600 crtscts
+	script/sendpacket.py < $<
 
 .PHONY: clean
 clean:
