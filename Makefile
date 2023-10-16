@@ -5,6 +5,7 @@ SERIALPORT = /dev/ttyUSB0
 SRC = \
 	  src/ceda_print_a.asm	\
 	  src/ceda_print_c.c	\
+	  src/crt.c             \
 	  src/cursor.c          \
 	  src/delay.asm         \
 	  src/main.c 			\
