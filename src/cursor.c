@@ -24,3 +24,13 @@ void cursor_setEndRaster(uint8_t end) {
     io_out(0xA0, 11);
     io_out(0xA1, end);
 }
+
+void cursor_enable(bool enable) {
+    if (enable) {
+        cursor_setStartRaster(0xd);
+        cursor_setEndRaster(0xd);
+    } else {
+        cursor_setStartRaster(0xd);
+        cursor_setEndRaster(0x0);
+    }
+}
