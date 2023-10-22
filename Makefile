@@ -3,13 +3,17 @@ PROJECT := demo
 SERIALPORT = /dev/ttyUSB0
 
 SRC = \
-	  src/ceda_print_a.asm	\
-	  src/ceda_print_c.c	\
+	  src/video_a.asm		\
+	  src/video.c			\
 	  src/crt.c             \
 	  src/cursor.c          \
 	  src/delay.asm         \
 	  src/main.c 			\
 	  src/io_a.c            \
+	  src/performance_test.asm \
+	  src/printf.c          \
+	  src/lfsr.c            \
+	  src/matrix.c          \
 	  \
 
 OBJ = $(patsubst %, %.o, $(basename $(SRC)))

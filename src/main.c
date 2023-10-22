@@ -1,8 +1,11 @@
-#include "ceda_print.h"
 #include "crt.h"
 #include "cursor.h"
 #include "delay.h"
 #include "io.h"
+#include "lfsr.h"
+#include "matrix.h"
+#include "printf.h"
+#include "video.h"
 
 static void wait(void) {
     (void)io_in(0xA0);
@@ -14,10 +17,19 @@ static void wait(void) {
     }
 }
 
-int main(void) {
-    ceda_print("Hello world!");
+void _putchar(char c) {
+    video_putchar(c);
+}
 
-    ceda_cls();
+int main(void) {
+    cursor_enable(false);
+    video_cls();
+
+    matrix_init();
+    for (;;) {
+        matrix_poll();
+        crt_waitFrames(4);
+    }
 
 #if 0
     for (int i = 0; i < 80; ++i) {
@@ -56,32 +68,38 @@ int main(void) {
     }
 #endif
 
+#if 0
+    char c = 'X';
+    for (;;) {
+        if (c == 'X')
+            c = ' ';
+        else
+            c = 'X';
+
+        *(((char *)0xd000) + 80 * 10 + 39) = c;
+        for (int i = 0; i < 10; ++i) {
+            delay_loop(US_TO_LOOPS(50000ULL));
+        }
+    }
+#endif
+
+#if 0
+    performance_test();
+#endif
+
+#if 0
     cursor_setXY(39, 10);
 
     for (;;) {
         for (int i = 0; i < 16; ++i) {
-            cursor_setStartRaster(0);
+            cursor_setStartRaster(i);
             cursor_setEndRaster(i);
-            for (int j = 0; j < 8; ++j)
-                crt_waitNextFrame();
+            crt_waitFrames(8);
         }
     }
+#endif
+
+    crt_waitFrames(50);
 
     return 0;
-}
-
-uint8_t ret_u8(void) {
-    return 0x01;
-}
-
-uint16_t ret_u16(void) {
-    return 0x0123;
-}
-
-uint32_t ret_u32(void) {
-    return 0x01234567;
-}
-
-void *ret_ptr(void) {
-    return (void *)0x1234;
 }
