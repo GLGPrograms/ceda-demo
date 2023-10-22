@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+extern char *const VIDEO_MEMORY;
+
 void video_cls(void);
 void video_put(uint8_t x, uint8_t y, char c);
 void video_putchar(char c);

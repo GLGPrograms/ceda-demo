@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-static char *const VIDEO_MEMORY = (char *)0xd000;
+char *const VIDEO_MEMORY = (char *)0xd000;
 static uint16_t offset = 0;
 
 void video_putchar(char c) {
