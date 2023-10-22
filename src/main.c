@@ -1,6 +1,8 @@
+#include "compiler.h"
 #include "crt.h"
 #include "cursor.h"
 #include "delay.h"
+#include "flipflap.h"
 #include "io.h"
 #include "lfsr.h"
 #include "matrix.h"
@@ -21,15 +23,42 @@ void _putchar(char c) {
     video_putchar(c);
 }
 
+const uint8_t GLG[28 * 8] = {
+    1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+    0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0,
+    1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1,
+};
+
 int main(void) {
     cursor_enable(false);
     video_cls();
 
-    matrix_init();
-    for (;;) {
-        matrix_poll();
-        crt_waitFrames(4);
+#if 0
+    const uint8_t trails[] = {5, 10, 20, 50};
+    for (uint8_t t = 0; t < countof(trails); ++t) {
+        matrix_init(trails[t]);
+        for (size_t f = 0; f < 120; ++f) {
+            matrix_poll();
+            crt_waitFrames(2);
+        }
     }
+#endif
+
+    video_cls();
+
+    flipflap_init(GLG, 28, 8, 8, 26);
+    while (!flipflap_finished()) {
+        flipflap_poll();
+        crt_waitNextFrame();
+    }
+
+    video_cls();
 
 #if 0
     for (int i = 0; i < 80; ++i) {

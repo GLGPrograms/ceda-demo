@@ -14,6 +14,7 @@ SRC = \
 	  src/printf.c          \
 	  src/lfsr.c            \
 	  src/matrix.c          \
+	  src/flipflap.c        \
 	  \
 
 OBJ = $(patsubst %, %.o, $(basename $(SRC)))
