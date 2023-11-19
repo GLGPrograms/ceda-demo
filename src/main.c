@@ -39,17 +39,6 @@ int main(void) {
     cursor_enable(false);
     video_cls();
 
-#if 0
-    const uint8_t trails[] = {5, 10, 20, 50};
-    for (uint8_t t = 0; t < countof(trails); ++t) {
-        matrix_init(trails[t]);
-        for (size_t f = 0; f < 120; ++f) {
-            matrix_poll();
-            crt_waitFrames(2);
-        }
-    }
-#endif
-
     video_cls();
 
     flipflap_init(GLG, 28, 8, 8, 26);
@@ -59,6 +48,16 @@ int main(void) {
     }
 
     video_cls();
+    crt_waitFrames(200);
+
+    const uint8_t trails[] = {5, 10, 20, 50};
+    for (uint8_t t = 0; t < countof(trails); ++t) {
+        matrix_init(trails[t]);
+        for (size_t f = 0; f < 120; ++f) {
+            matrix_poll();
+            crt_waitFrames(2);
+        }
+    }
 
 #if 0
     for (int i = 0; i < 80; ++i) {
