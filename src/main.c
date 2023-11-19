@@ -35,20 +35,39 @@ const uint8_t GLG[28 * 8] = {
     1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1,
 };
 
+const uint8_t FVB[15 * 8] = {
+    1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0,
+    1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0,
+    0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1,
+    0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0,
+    1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0,
+};
+
 int main(void) {
     cursor_enable(false);
     video_cls();
 
     video_cls();
 
+#if 0
     flipflap_init(GLG, 28, 8, 8, 26);
     while (!flipflap_finished()) {
         flipflap_poll();
         crt_waitNextFrame();
     }
-
+    crt_waitFrames(100);
     video_cls();
     crt_waitFrames(200);
+#endif
+
+    flipflap_init(FVB, 15, 8, 2, 40 - 15 / 2);
+    while (!flipflap_finished()) {
+        flipflap_poll();
+        crt_waitNextFrame();
+    }
+    crt_waitFrames(100);
+    video_cls();
+    crt_waitFrames(100);
 
     const uint8_t trails[] = {5, 10, 20, 50};
     for (uint8_t t = 0; t < countof(trails); ++t) {
