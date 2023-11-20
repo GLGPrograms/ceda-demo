@@ -47,25 +47,38 @@ int main(void) {
     cursor_enable(false);
     video_cls();
 
-    video_cls();
-
-#if 0
     flipflap_init(GLG, 28, 8, 8, 26);
     while (!flipflap_finished()) {
         flipflap_poll();
         crt_waitNextFrame();
     }
-    crt_waitFrames(100);
+    video_enableHorizontalStretch(true);
+    video_enableVerticalStretch(true);
+    video_locate(18, 15);
+    printf("RetrOfficina GLG Programs");
+    video_enableHorizontalStretch(false);
+    video_enableVerticalStretch(false);
+    video_locate(20, 22);
+    printf("http://retrofficina.glgprograms.it/");
+
+    crt_waitFrames(250);
     video_cls();
-    crt_waitFrames(200);
-#endif
+    crt_waitFrames(100);
 
     flipflap_init(FVB, 15, 8, 2, 40 - 15 / 2);
     while (!flipflap_finished()) {
         flipflap_poll();
         crt_waitNextFrame();
     }
-    crt_waitFrames(100);
+
+    video_enableHorizontalStretch(true);
+    video_enableVerticalStretch(true);
+    video_locate(10, 21);
+    printf("Firenze Vintage Bit");
+    video_locate(12, 36);
+    printf("2023");
+
+    crt_waitFrames(250);
     video_cls();
     crt_waitFrames(100);
 
