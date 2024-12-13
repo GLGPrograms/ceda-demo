@@ -1,5 +1,6 @@
+; C startup code for serial loader (BIOS-only)
 SECTION code_compiler
-    org $1000
+    org $100
 
 EXTERN _main
 

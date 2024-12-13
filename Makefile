@@ -23,14 +23,25 @@ ECHO	:=	@echo
 QUIET	:=	@
 OUTDIR	:=	build
 
-$(OUTDIR)/$(PROJECT).prg: $(OUTDIR)/$(PROJECT)_code_compiler.bin
-	echo -n -e '\x00\x10' > $@
+.PHONY: all
+all: $(OUTDIR)/$(PROJECT).prg $(OUTDIR)/$(PROJECT).com
+
+$(OUTDIR)/$(PROJECT).com: $(OUTDIR)/$(PROJECT)-cpm_code_compiler.bin
+	cp $< $@
+
+$(OUTDIR)/$(PROJECT).prg: $(OUTDIR)/$(PROJECT)-bios_code_compiler.bin
+	echo -n -e '\x00\x01' > $@
 	cat $< >> $@
 
-$(OUTDIR)/$(PROJECT)_code_compiler.bin: $(OBJ) | $(OUTDIR)
+$(OUTDIR)/$(PROJECT)-cpm_code_compiler.bin: $(OBJ) | $(OUTDIR)
 	zcc +conf.cfg \
-		-crt0=src/crt.asm \
-		-m -o $(OUTDIR)/$(PROJECT) $(OBJ)
+		-crt0=crt/cpm.asm \
+		-m -o $(OUTDIR)/$(PROJECT)-cpm $(OBJ)
+
+$(OUTDIR)/$(PROJECT)-bios_code_compiler.bin: $(OBJ) | $(OUTDIR)
+	zcc +conf.cfg \
+		-crt0=crt/bios.asm \
+		-m -o $(OUTDIR)/$(PROJECT)-bios $(OBJ)
 
 %.o: %.c
 	zcc +z80 -c -o $@ $<

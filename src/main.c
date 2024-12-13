@@ -44,6 +44,8 @@ const uint8_t FVB[15 * 8] = {
 };
 
 int main(void) {
+    io_out(0x81, io_in(0x81) & ~0x01);
+
     for (;;) {
         cursor_enable(false);
         video_cls();
@@ -95,5 +97,6 @@ int main(void) {
         crt_waitFrames(250);
     }
 
+    io_out(0x81, io_in(0x81) | 0x01);
     return 0;
 }
