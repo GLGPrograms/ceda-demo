@@ -14,6 +14,7 @@ SRC = \
 	  src/printf.c          \
 	  src/lfsr.c            \
 	  src/matrix.c          \
+	  src/mmap.c            \
 	  src/flipflap.c        \
 	  \
 

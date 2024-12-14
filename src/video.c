@@ -1,6 +1,7 @@
 #include "video.h"
 
 #include "io.h"
+#include "mmap.h"
 
 #include <stdint.h>
 
@@ -29,9 +30,9 @@ void video_putchar(char c) {
     }
 
     if (hstretch) {
-        io_out(0x81, io_in(0x81) | 0x80);
+        mmap_set(MMAP_MODE_CEDA_ATTR);
         *(VIDEO_MEMORY + offset) |= 0x08;
-        io_out(0x81, io_in(0x81) & ~0x80);
+        mmap_set(MMAP_MODE_CEDA_VIDEO);
     }
 
     if (c == '\t') {
@@ -44,12 +45,12 @@ void video_putchar(char c) {
     if (vstretch) {
         *(VIDEO_MEMORY + offset + 80) = c;
 
-        io_out(0x81, io_in(0x81) | 0x80);
+        mmap_set(MMAP_MODE_CEDA_ATTR);
         *(VIDEO_MEMORY + offset) |= 0x60;
         *(VIDEO_MEMORY + offset + 80) |= 0x70;
         if (hstretch)
             *(VIDEO_MEMORY + offset + 80) |= 0x08;
-        io_out(0x81, io_in(0x81) & ~0x80);
+        mmap_set(MMAP_MODE_CEDA_VIDEO);
     }
 
     ++offset;

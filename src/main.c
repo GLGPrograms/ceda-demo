@@ -6,6 +6,7 @@
 #include "io.h"
 #include "lfsr.h"
 #include "matrix.h"
+#include "mmap.h"
 #include "printf.h"
 #include "video.h"
 
@@ -44,7 +45,7 @@ const uint8_t FVB[15 * 8] = {
 };
 
 int main(void) {
-    io_out(0x81, io_in(0x81) & ~0x01);
+    mmap_set(MMAP_MODE_CEDA_VIDEO);
 
     for (;;) {
         cursor_enable(false);
@@ -96,7 +97,4 @@ int main(void) {
 
         crt_waitFrames(250);
     }
-
-    io_out(0x81, io_in(0x81) | 0x01);
-    return 0;
 }
