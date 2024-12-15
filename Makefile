@@ -13,6 +13,7 @@ SRC = \
 	  src/performance_test.asm \
 	  src/printf.c          \
 	  src/lfsr.c            \
+	  src/magiccursor.c     \
 	  src/matrix.c          \
 	  src/mmap.c            \
 	  src/flipflap.c        \

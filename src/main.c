@@ -5,6 +5,7 @@
 #include "flipflap.h"
 #include "io.h"
 #include "lfsr.h"
+#include "magiccursor.h"
 #include "matrix.h"
 #include "mmap.h"
 #include "printf.h"
@@ -95,6 +96,8 @@ int main(void) {
             }
         }
 
-        crt_waitFrames(250);
+        crt_waitFrames(100);
+
+        magicCursor_run();
     }
 }
