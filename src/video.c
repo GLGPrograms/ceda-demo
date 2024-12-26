@@ -9,6 +9,7 @@ char *const VIDEO_MEMORY = (char *)0xd000;
 static uint16_t offset = 0;
 static bool hstretch = false;
 static bool vstretch = false;
+static bool underline = false;
 
 void video_locate(uint8_t row, uint8_t column) {
     offset = (uint16_t)row * 80 + column;
@@ -22,11 +23,21 @@ void video_enableVerticalStretch(bool enable) {
     vstretch = enable;
 }
 
+void video_enableUnderline(bool enable) {
+    underline = enable;
+}
+
 void video_putchar(char c) {
     // TODO(giomba): this function is not very consistent :sweat:
     if (c == '\n' || c == '\r') {
         offset += 80 - (offset % 80);
         goto end;
+    }
+
+    if (underline) {
+        mmap_set(MMAP_MODE_CEDA_ATTR);
+        *(VIDEO_MEMORY + offset) |= (0x01 << 4);
+        mmap_set(MMAP_MODE_CEDA_VIDEO);
     }
 
     if (hstretch) {
