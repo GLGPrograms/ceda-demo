@@ -81,3 +81,12 @@ void video_put(uint8_t x, uint8_t y, char c) {
 
     *(VIDEO_MEMORY + x + y * 80) = c;
 }
+
+char video_get(uint8_t x, uint8_t y) {
+    if (x >= 80)
+        return 0;
+    if (y >= 25)
+        return 0;
+
+    return *(VIDEO_MEMORY + x + y * 80);
+}
