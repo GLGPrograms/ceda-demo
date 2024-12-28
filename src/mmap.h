@@ -8,5 +8,6 @@ enum mmap_mode_t {
 };
 
 void mmap_set(enum mmap_mode_t mode);
+enum mmap_mode_t mmap_get(void);
 
 #endif // CEDA_DEMO_MMAP
