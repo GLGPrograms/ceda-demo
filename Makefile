@@ -19,6 +19,8 @@ SRC = \
 	  src/matrix.c          \
 	  src/mmap.c            \
 	  src/flipflap.c        \
+	  src/cge.c             \
+	  src/snow.c            \
 	  \
 
 OBJ = $(patsubst %, %.o, $(basename $(SRC)))
