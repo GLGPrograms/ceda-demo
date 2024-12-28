@@ -7,7 +7,7 @@ EXTERN _main
 PUBLIC __Start
 
 __Start:
-    ld sp,0xc000
+    ld sp,0xb000
 
     call _main
 
