@@ -4,6 +4,8 @@ Demo for the Sanco 800x.
 
 The purpose of this demo is mainly to thinker with the hardware of the mentioned computer, since we are reverse-engineering it, and even writing an emulator.
 
+It also demonstrates some hardware capabilities of the machine, exploits some custom mods, and its build system can be used as a template for new applications in C and assembly.
+
 This repository is part of the [CEDA project](https://github.com/GLGPrograms/ceda-home) by [Retrofficina GLG Programs](https://retrofficina.glgprograms.it/).
 
 ## C/ASM calling conventions
