@@ -3,6 +3,7 @@ PROJECT := demo
 SERIALPORT = /dev/ttyUSB0
 
 SRC = \
+	  assets/hello.c        \
 	  src/video_a.asm		\
 	  src/video.c			\
 	  src/crt.c             \
