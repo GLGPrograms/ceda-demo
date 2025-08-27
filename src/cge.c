@@ -150,7 +150,7 @@ void cge_run(void) {
     for (uint_least16_t i = 0; i < 256; ++i) {
         video_put(40 + 12 + i % 16, 4 + i / 16, i);
     }
-    crt_waitFrames(4 * CRT_FRAMES_PER_SECOND);
+    crt_waitFrames(10 * CRT_FRAMES_PER_SECOND);
 
     video_cls();
     crt_waitFrames(2 * CRT_FRAMES_PER_SECOND);
