@@ -59,6 +59,7 @@ enum demo_part_t {
 static bool demo_enable[DEMO_COUNT] = {false};
 
 int main(void) {
+    mmap_set(MMAP_MODE_CEDA_VIDEO);
     _memset(&demo_enable, 1, sizeof(demo_enable));
 
     cursor_enable(false);
