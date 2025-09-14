@@ -1,8 +1,10 @@
+#include "audio.h"
 #include "cge.h"
 #include "compiler.h"
 #include "crt.h"
 #include "cursor.h"
 #include "delay.h"
+#include "demo.h"
 #include "flipflap.h"
 #include "io.h"
 #include "lfsr.h"
@@ -15,15 +17,6 @@
 
 void _putchar(char c) {
     video_putchar(c);
-}
-
-static void *_memset(void *s, int c, size_t n) {
-    char *start = (char *)s;
-    char *end = (char *)s + n;
-    char value = (char)c;
-    for (char *ptr = start; ptr != end; ++ptr)
-        *ptr = value;
-    return s;
 }
 
 const uint8_t GLG[28 * 8] = {
@@ -46,27 +39,17 @@ const uint8_t FVB[15 * 8] = {
     1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0,
 };
 
-enum demo_part_t {
-    DEMO_INTRO,
-    DEMO_FVB,
-    DEMO_MATRIX,
-    DEMO_CURSOR,
-    DEMO_CGE,
-
-    DEMO_COUNT,
-};
-
-static bool demo_enable[DEMO_COUNT] = {false};
-
+// Disclaimer: this demo is a bit messy and is not a good programming example.
+// Forewarned is forearmed.
 int main(void) {
     mmap_set(MMAP_MODE_CEDA_VIDEO);
-    _memset(&demo_enable, 1, sizeof(demo_enable));
+    demo_init();
 
     cursor_enable(false);
     video_cls();
 
     for (;;) {
-        if (demo_enable[DEMO_INTRO]) {
+        if (demo_isEnabled(DEMO_INTRO)) {
             flipflap_init(GLG, 28, 8, 8, 26);
             while (!flipflap_finished()) {
                 flipflap_poll();
@@ -84,7 +67,7 @@ int main(void) {
             crt_waitFrames(250);
         }
 
-        if (demo_enable[DEMO_FVB]) {
+        if (demo_isEnabled(DEMO_FVB)) {
             video_cls();
             crt_waitFrames(100);
             flipflap_init(FVB, 15, 8, 2, 40 - 15 / 2);
@@ -103,7 +86,7 @@ int main(void) {
             crt_waitFrames(250);
         }
 
-        if (demo_enable[DEMO_MATRIX]) {
+        if (demo_isEnabled(DEMO_MATRIX)) {
             video_cls();
             crt_waitFrames(100);
             const uint8_t trails[] = {5, 10, 20, 50};
@@ -116,13 +99,13 @@ int main(void) {
             }
         }
 
-        if (demo_enable[DEMO_CURSOR]) {
+        if (demo_isEnabled(DEMO_CURSOR)) {
             crt_waitFrames(100);
             magicCursor_run();
             crt_waitFrames(100);
         }
 
-        if (demo_enable[DEMO_CGE]) {
+        if (demo_isEnabled(DEMO_CGE)) {
             cge_run();
         }
     }
