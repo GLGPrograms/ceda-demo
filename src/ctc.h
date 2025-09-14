@@ -13,4 +13,6 @@ void timer_init(void);
 
 void timer_setISR(timer_user_isr_t isr);
 
+void timer_cleanup(void);
+
 #endif

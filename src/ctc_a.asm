@@ -40,3 +40,18 @@ _timer_init:
     pop af
     ret
 
+PUBLIC _timer_cleanup
+_timer_cleanup:
+    di
+    push hl
+    push bc
+
+    ; disable CTC interrupts and perform a software reset
+    ld  l,$03
+    ld  c,$e3
+    out (c),l
+
+    pop bc
+    pop hl
+    ei
+    ret
