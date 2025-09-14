@@ -4,6 +4,8 @@ SERIALPORT = /dev/ttyUSB0
 
 SRC = \
 	  assets/ctree.c        \
+	  assets/fvb.c          \
+      assets/glg.c          \
 	  assets/hello.c        \
 	  assets/rudolph.c      \
 	  src/audio.c           \

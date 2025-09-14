@@ -1,3 +1,5 @@
+#include "../assets/fvb.h"
+#include "../assets/glg.h"
 #include "audio.h"
 #include "cge.h"
 #include "compiler.h"
@@ -19,26 +21,6 @@ void _putchar(char c) {
     video_putchar(c);
 }
 
-const uint8_t GLG[28 * 8] = {
-    1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-    0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0,
-    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0,
-    1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1,
-};
-
-const uint8_t FVB[15 * 8] = {
-    1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0,
-    1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0,
-    0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1,
-    0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0,
-    1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0,
-};
-
 // Disclaimer: this demo is a bit messy and is not a good programming example.
 // Forewarned is forearmed.
 int main(void) {
@@ -50,7 +32,7 @@ int main(void) {
 
     for (;;) {
         if (demo_isEnabled(DEMO_INTRO)) {
-            flipflap_init(GLG, 28, 8, 8, 26);
+            flipflap_init(GLG, GLG_W, GLG_H, 8, 26);
             while (!flipflap_finished()) {
                 flipflap_poll();
                 crt_waitNextFrame();
@@ -70,7 +52,7 @@ int main(void) {
         if (demo_isEnabled(DEMO_FVB)) {
             video_cls();
             crt_waitFrames(100);
-            flipflap_init(FVB, 15, 8, 2, 40 - 15 / 2);
+            flipflap_init(FVB, FVB_W, FVB_H, 2, 40 - 15 / 2);
             while (!flipflap_finished()) {
                 flipflap_poll();
                 crt_waitNextFrame();
