@@ -18,8 +18,8 @@ _timer_init:
     ld  c,$e3
     out (c),l
 
-    ; timer constant: T = $9c (156) × P = 256 × (1 / 4MHz) = 10 ms
-    ld  l,$9c
+    ; timer constant: T = $34 (52) × P = 52 × 256 × (1 / 4MHz) ~= 3 ms => 300 Hz
+    ld  l,$34
     ld  c,$e3
     out (c),l
 
