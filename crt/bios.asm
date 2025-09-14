@@ -8,7 +8,9 @@ PUBLIC __Start
 
 __Start:
     ld sp,0xb000
-
     call _main
+    ; main must never return
+    ; and nothing must be put here,
+    ; because this memory are is shared with the IVT
+INCLUDE "timer_crt.asm"
 
-    jp ASMPC
