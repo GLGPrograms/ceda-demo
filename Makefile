@@ -47,12 +47,12 @@ $(OUTDIR)/$(PROJECT).prg: $(OUTDIR)/$(PROJECT)-bios_code_compiler.bin
 	echo -n -e '\x00\x01' > $@
 	cat $< >> $@
 
-$(OUTDIR)/$(PROJECT)-cpm_code_compiler.bin: $(OBJ) | $(OUTDIR)
+$(OUTDIR)/$(PROJECT)-cpm_code_compiler.bin: $(OBJ) crt/cpm.asm | $(OUTDIR)
 	zcc +conf.cfg \
 		-crt0=crt/cpm.asm \
 		-m -o $(OUTDIR)/$(PROJECT)-cpm $(OBJ)
 
-$(OUTDIR)/$(PROJECT)-bios_code_compiler.bin: $(OBJ) | $(OUTDIR)
+$(OUTDIR)/$(PROJECT)-bios_code_compiler.bin: $(OBJ) crt/bios.asm | $(OUTDIR)
 	zcc +conf.cfg \
 		-crt0=crt/bios.asm \
 		-m -o $(OUTDIR)/$(PROJECT)-bios $(OBJ)
