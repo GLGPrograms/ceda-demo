@@ -1,5 +1,6 @@
 #include "cge.h"
 
+#include "audio.h"
 #include "crt.h"
 #include "mmap.h"
 #include "printf.h"
@@ -80,6 +81,8 @@ void cge_run(void) {
 
     mmap_set(MMAP_MODE_CEDA_VIDEO);
 
+    audio_init();
+
     // Copy Christmas tree image
     extern unsigned char ctree_imc[];
     for (int i = 0; i < 2000; ++i) {
@@ -90,9 +93,9 @@ void cge_run(void) {
     video_enableVerticalStretch(true);
     video_enableHorizontalStretch(true);
     video_locate(8, 36);
-    printf("Merry Christmas 2024");
+    printf("Merry Christmas 2025");
     video_locate(12, 36);
-    printf("Happy New Year 2025");
+    printf("Happy New Year 2026");
 
     // Marketing :-)
     video_enableVerticalStretch(false);
@@ -103,11 +106,11 @@ void cge_run(void) {
     video_enableUnderline(false);
 
     snow_init();
-    for (uint_least16_t i = 0; i < 10 * CRT_FRAMES_PER_SECOND / CGE_SNOW_FRAMES;
-         ++i) {
+    while (audio_run()) {
         snow_update();
         crt_waitFrames(CGE_SNOW_FRAMES);
     }
+    audio_cleanup();
 
     video_cls();
     crt_waitFrames(2 * CRT_FRAMES_PER_SECOND);
