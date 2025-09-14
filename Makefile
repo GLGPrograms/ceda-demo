@@ -5,22 +5,28 @@ SERIALPORT = /dev/ttyUSB0
 SRC = \
 	  assets/ctree.c        \
 	  assets/hello.c        \
-	  src/video_a.asm		\
-	  src/video.c			\
+	  assets/rudolph.c      \
+	  src/audio.c           \
+	  src/cge.c             \
 	  src/crt.c             \
+	  src/ctc.c             \
+	  src/ctc_a.asm         \
 	  src/cursor.c          \
 	  src/delay.asm         \
-	  src/main.c 			\
+	  src/demo.c            \
+	  src/flipflap.c        \
 	  src/io_a.c            \
-	  src/performance_test.asm \
-	  src/printf.c          \
 	  src/lfsr.c            \
 	  src/magiccursor.c     \
+	  src/main.c 			\
 	  src/matrix.c          \
 	  src/mmap.c            \
-	  src/flipflap.c        \
-	  src/cge.c             \
+	  src/performance_test.asm \
+	  src/printf.c          \
 	  src/snow.c            \
+	  src/string.c          \
+	  src/video_a.asm		\
+	  src/video.c			\
 	  \
 
 OBJ = $(patsubst %, %.o, $(basename $(SRC)))
