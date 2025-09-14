@@ -9,3 +9,6 @@ PUBLIC __Start
 __Start:
     call _main
     ret
+
+INCLUDE "timer_crt.asm"
+
