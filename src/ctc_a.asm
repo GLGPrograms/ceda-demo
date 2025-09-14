@@ -7,8 +7,10 @@ _timer_init:
     push    hl
     di
 
-    ; set $02 as the MSB of the interrupt vector table base address
-    ld  a,$02
+    ; Set $01 as the MSB of the interrupt vector table base address.
+    ; IVT is located at $0100 and the first bytes are shared with the
+    ; CP/M .COM format entrypoint
+    ld  a,$01
     ld  i,a
 
     ; timer control word
