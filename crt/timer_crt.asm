@@ -20,12 +20,18 @@ ivt:
 EXTERN _timer_isr
 PUBLIC z80_a_timer_isr
 z80_a_timer_isr:
-    ; TODO(giomba): preserve registers
     exx
     ex af,af'
+    push ix
+    push iy
+
     call _timer_isr
+
+    pop iy
+    pop ix
     ex af,af'
     exx
+
     ei
     reti
 
